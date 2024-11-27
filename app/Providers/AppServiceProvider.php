@@ -8,7 +8,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
             $params = explode('/', $url['path']);
             $hash = $params[6];
 
-            return Config::get('app.frontend_url') . "/email/verify/{$notifiable->getKey()}/$hash?$query";
+            return Config::get('app.frontend_url') . "/verify-email/{$notifiable->getKey()}/$hash?$query";
         });
     }
 }
