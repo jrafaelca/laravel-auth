@@ -3,25 +3,14 @@
 namespace App\Http\Controllers\V1\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\PasswordResetLinkRequest;
+use App\Http\Requests\V1\Auth\ForgotPasswordRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 
-class PasswordResetLinkController extends Controller implements HasMiddleware
+class ForgotPasswordController extends Controller
 {
-    public static function middleware(): array
-    {
-        return ['guest'];
-    }
-
-    /**
-     * Handle the incoming request.
-     *
-     * @throws ValidationException
-     */
-    public function __invoke(PasswordResetLinkRequest $request): JsonResponse
+    public function __invoke(ForgotPasswordRequest $request): JsonResponse
     {
         $status = Password::sendResetLink(
             $request->only('email')

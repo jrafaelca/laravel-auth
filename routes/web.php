@@ -2,6 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return app()->version();
-});
+Route::get('/', fn () => redirect()->to(config('app.frontend_url')));
