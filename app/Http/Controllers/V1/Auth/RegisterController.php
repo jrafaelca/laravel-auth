@@ -7,20 +7,12 @@ use App\Http\Requests\V1\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 
-class RegisteredUserController extends Controller implements HasMiddleware
+class RegisterController extends Controller
 {
-    public static function middleware(): array
-    {
-        return ['guest'];
-    }
-
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(RegisterRequest $request): Response
     {
         $user = User::query()
@@ -30,7 +22,7 @@ class RegisteredUserController extends Controller implements HasMiddleware
                 'password' => Hash::make($request->string('password')),
             ]);
 
-        event(new Registered($user));
+        Event::dispatch(new Registered($user));
 
         Auth::login($user);
 
