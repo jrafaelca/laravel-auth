@@ -9,7 +9,7 @@ test('users can request reset password link', function () {
 
     $user = User::factory()->create();
 
-    $this->postJson(route('v1.auth.forgot-password'), [
+    $this->postJson(route('password.email'), [
         'email' => $user->email,
     ]);
 

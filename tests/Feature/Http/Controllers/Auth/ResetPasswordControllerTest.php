@@ -9,12 +9,12 @@ test('users can reset password with valid token', function () {
 
     $user = User::factory()->create();
 
-    $this->postJson(route('v1.auth.forgot-password'), [
+    $this->postJson(route('password.email'), [
         'email' => $user->email,
     ]);
 
     Notification::assertSentTo($user, ResetPassword::class, function (object $notification) use ($user) {
-        $response = $this->postJson(route('v1.auth.reset-password'), [
+        $response = $this->postJson(route('password.store'), [
             'token' => $notification->token,
             'email' => $user->email,
             'password' => 'password',

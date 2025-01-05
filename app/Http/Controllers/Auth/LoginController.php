@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\V1\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Auth\LoginRequest;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function __invoke(LoginRequest $request): Response
     {
-        if (!Auth::guard('web')->attempt($request->safe(['email', 'password']), $request->validated('remember'))) {
+        if (!Auth::attempt($request->safe(['email', 'password']), $request->validated('remember'))) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
