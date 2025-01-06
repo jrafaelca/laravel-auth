@@ -24,10 +24,9 @@ test('users can verify email address', function () {
 
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
 
-    $response->assertRedirect(config('app.frontend_url') . '?verified=1');
+    $response->assertRedirect(config('app.frontend_url').'?verified=1');
 
 });
-
 
 test('users can not verify email address with invalid hash', function () {
     $user = User::factory()->unverified()->create();

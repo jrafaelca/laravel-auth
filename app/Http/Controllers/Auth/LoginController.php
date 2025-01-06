@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function __invoke(LoginRequest $request): Response
     {
-        if (!Auth::attempt($request->safe(['email', 'password']), $request->validated('remember'))) {
+        if (! Auth::attempt($request->safe(['email', 'password']), $request->validated('remember'))) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
